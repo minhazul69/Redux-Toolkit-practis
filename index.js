@@ -68,14 +68,16 @@ const { createStore } = require("redux");
 // store.dispatch(decrementAction());
 // store.dispatch(resetAction());
 
-// DECLARE INITIAL STATE
+// INITIAL STATE
 const initialState = {
   count: 0,
 };
+
 // VARIABLE
 const INCREMENT = "INCREMENT";
 const DECREMENT = "DECREMENT";
 const RESET = "RESET";
+const ADD_COUNTER_BY_PAYLOAD = "ADD_COUNTER_BY_PAYLOAD";
 
 // ACTION
 const incrementAction = () => {
@@ -93,8 +95,14 @@ const resetAction = () => {
     type: RESET,
   };
 };
+const addCounterByPayload = (number) => {
+  return {
+    type: ADD_COUNTER_BY_PAYLOAD,
+    payload: number,
+  };
+};
 
-// CREATE REDUCER
+// REDUCER COUNTER
 const counterReducer = (state = initialState, action) => {
   switch (action.type) {
     case INCREMENT:
@@ -112,6 +120,11 @@ const counterReducer = (state = initialState, action) => {
         ...state,
         count: 0,
       };
+    case ADD_COUNTER_BY_PAYLOAD:
+      return {
+        ...state,
+        count: state.count + action.payload,
+      };
 
     default:
       state;
@@ -119,10 +132,12 @@ const counterReducer = (state = initialState, action) => {
 };
 
 const store = createStore(counterReducer);
-store.subscribe(() => {
-  console.log(store.getState());
-});
-store.dispatch(incrementAction());
-store.dispatch(incrementAction());
-store.dispatch(decrementAction());
-store.dispatch(resetAction());
+store.subscribe(() => console.log(store.getState()));
+// store.dispatch(incrementAction());
+// store.dispatch(incrementAction());
+// store.dispatch(incrementAction());
+// store.dispatch(decrementAction());
+// store.dispatch(resetAction());
+store.dispatch(addCounterByPayload(10));
+store.dispatch(addCounterByPayload(5));
+store.dispatch(addCounterByPayload(15));
