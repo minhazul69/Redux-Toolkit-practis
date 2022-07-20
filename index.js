@@ -70,7 +70,8 @@ const { createStore } = require("redux");
 
 // INITIAL STATE
 const initialState = {
-  count: 0,
+  user: ["Akib"],
+  count: 1,
 };
 
 // VARIABLE
@@ -78,6 +79,7 @@ const INCREMENT = "INCREMENT";
 const DECREMENT = "DECREMENT";
 const RESET = "RESET";
 const ADD_COUNTER_BY_PAYLOAD = "ADD_COUNTER_BY_PAYLOAD";
+const ADD_USER = "ADD_USER";
 
 // ACTION
 const incrementAction = () => {
@@ -99,6 +101,12 @@ const addCounterByPayload = (number) => {
   return {
     type: ADD_COUNTER_BY_PAYLOAD,
     payload: number,
+  };
+};
+const addUser = (user) => {
+  return {
+    type: ADD_USER,
+    payload: user,
   };
 };
 
@@ -125,6 +133,11 @@ const counterReducer = (state = initialState, action) => {
         ...state,
         count: state.count + action.payload,
       };
+    case ADD_USER:
+      return {
+        user: [...state.user, action.payload],
+        count: state.count + 1,
+      };
 
     default:
       state;
@@ -138,6 +151,8 @@ store.subscribe(() => console.log(store.getState()));
 // store.dispatch(incrementAction());
 // store.dispatch(decrementAction());
 // store.dispatch(resetAction());
-store.dispatch(addCounterByPayload(10));
-store.dispatch(addCounterByPayload(5));
-store.dispatch(addCounterByPayload(15));
+// store.dispatch(addCounterByPayload(10));
+// store.dispatch(addCounterByPayload(5));
+// store.dispatch(addCounterByPayload(15));
+store.dispatch(addUser("sakib"));
+store.dispatch(addUser("Tasib"));
