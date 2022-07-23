@@ -4,7 +4,8 @@
 // 3. reducer
 // 4. store
 
-const { createStore, combineReducers } = require("redux");
+const { createStore, combineReducers, applyMiddleware } = require("redux");
+const { default: logger } = require("redux-logger");
 
 // const { createStore } = require("redux");
 
@@ -245,19 +246,22 @@ const cartReducer = (state = initialCartState, action) => {
       return state;
   }
 };
+// ADD MULTI REDUCER
 const rootReducer = combineReducers({
   productR: productReducer,
   cartR: cartReducer,
 });
 // CREATE STORE
-const store = createStore(rootReducer);
+// USE MIDDLEWARE
+// USE REDUX LOGGER MIDDLEWARE
+const store = createStore(rootReducer, applyMiddleware(logger));
 store.subscribe(() => {
   console.log(store.getState());
 });
 store.dispatch(getProduct());
 store.dispatch(addProduct("onion"));
-store.dispatch(addProduct("rice"));
+// store.dispatch(addProduct("rice"));
 
-store.dispatch(getCart());
-store.dispatch(addCart("rice"));
-store.dispatch(addCart("onion"));
+// store.dispatch(getCart());
+// store.dispatch(addCart("rice"));
+// store.dispatch(addCart("onion"));
