@@ -230,6 +230,7 @@ const addCart = (cartCountNumber) => {
   };
 };
 // CART REDUCER
+// REDUX TOOLKIT USE
 const cartReducer = (state = initialCartState, action) => {
   switch (action.type) {
     case GET_CART:
@@ -239,7 +240,7 @@ const cartReducer = (state = initialCartState, action) => {
     case ADD_CART:
       return {
         cart: [...state.cart, action.payload],
-        count: state.count + 1,
+        count: state.count + 5,
       };
 
     default:
